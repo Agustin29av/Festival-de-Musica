@@ -2,7 +2,6 @@
   "name": "festivaldemusica",
   "version": "1.0.0",
   "description": "Aprendiendo SASS y NPM",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "sass": "sass --watch src/scss:build/css",
