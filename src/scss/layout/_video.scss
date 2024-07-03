@@ -1,0 +1,46 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.video{
+    position: relative;
+    min-height: 50rem;
+    max-height: 70rem; // Para cortar el video y que no me ocupe TODA la pantalla
+    overflow: hidden; // para que no se me corte el overlay con el video y quede todo junto
+    .overlay{
+        position: absolute;
+        background: linear-gradient(
+            270deg,
+            rgba(v.$morado, 60%),
+            rgba(darken(v.$morado, 20%), 90%)
+        );
+        inset: 0; 
+        display: flex;
+        align-items: center; // centra verticalmente
+    }
+
+    video{
+        display: block; // se alinea el video con el coso que puse para que sea mas violeta 
+        width: auto; //para dispositivos mas chicos
+        @include m.desktop{
+            width: 100%; // para que en una pc tome el 100% 
+        }
+    }
+}
+
+.contenido-video{
+    z-index: 10 ; // esto es para que el titulo y eso se puedan seleccionar, para traer para "adelante" del overlay visualmente no afecta, pero no me deja seleccionarlo. Pasa mas que nada cuando usas position absoluta y relativa
+    h2{
+        color: v.$blanco;
+        font-size: 7rem; //agrando la fuente
+        margin: 0; //todos los headings tienen margin, por lo que, lo saco.
+    }
+    p{
+        background-color: v.$rosa;
+        display: inline-block; //uso inline-block porque inline no me permite aplicarle padding y me queda pegado
+        padding: 1rem 2rem; 
+        color: v.$blanco;
+        font-size: 2.4rem;
+        font-weight: 700; //lo hace como mas "ancho" es para ponerlo en negrita
+        margin: 0; // le pongo 0 porque los parrafos siempre tienen margin y ya tenemos inline block
+    }
+}
