@@ -1,6 +1,22 @@
 document.addEventListener('DOMContentLoaded', function(){
+    navegacionFija()
     crearGaleria()
+    resaltarEnlace()
+    scrollNav()
 });
+
+function navegacionFija(){
+    const header = document.querySelector('.header')
+    const sobrefestival = document.querySelector('.sobre-festival')
+
+    window.addEventListener('scroll', function(){
+        if(sobrefestival.getBoundingClientRect().bottom < 1){
+            header.classList.add('fixed')
+        }else{
+            header.classList.remove('fixed')
+        }  //todo esto es para dejar fija la barra de navegacion
+    })
+}
 
 function crearGaleria(){
     const CANTIDAD_IMAGENES = 16;
@@ -60,4 +76,42 @@ function cerrarModal(){
         modal?.remove() // esto es para que cuando yo presiono y abre, cuando vuelvo a presionar se cierra
     },  500);
 
+}
+
+function resaltarEnlace(){
+    document.addEventListener('scroll', function(){
+        const sections = document.querySelectorAll('section')
+        const navLinks = document.querySelectorAll('.navegacion-principal a')
+
+        let actual = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop // section top es la distancia en la cual se encuentra el html hasta arriba ( asi lo explica el mexicano, es basicamente, la que tenga mas)
+            const sectionHeight = section.clientHeight // todo esto es para ver cuanto hay del section al section anterior para posicionar bien el scroll
+
+            if(window.scrollY >= (sectionTop - sectionHeight / 3)){
+                actual = section.id  
+            }
+            //BASICAMENTE ITERAMOS SOBRE TODAS LAS SECCIONES Y DETECTAMOS CUAL ES LA QUE ESTA MAS VISIBLE, LA MARCAMOS COMO LA ACTUAL
+        })
+        navLinks.forEach(link => {
+                link.classList.remove('active')
+            if(link.getAttribute('href') === '#' + actual){
+                link.classList.add('active') // todo esto para que se resalte en el que estoy y cuando bajo se desactive el anterior y se active el nuevo
+            }
+        })
+    })
+}
+
+function scrollNav(){
+    const navLinks = document.querySelectorAll('.navegacion-principal a')
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault()
+            const sectionScroll = e.target.getAttribute('href') 
+            const section = document.querySelector(sectionScroll)
+
+            section.scrollIntoView({behavior: 'smooth'}) // esto es para que la transicion de scroll sea mas linda
+        })
+    })
 }
