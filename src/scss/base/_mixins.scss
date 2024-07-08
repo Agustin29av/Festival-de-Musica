@@ -27,8 +27,14 @@
     margin: 0 auto;
 }
 
-@mixin grid($columnas){
+@mixin grid($columnas, $gap: 5rem){
     display: grid;
-    grid-template-columns: repeat(($columnas,1fr));
-    gap: 5rem;
+    grid-template-columns: repeat($columnas,1fr);
+    gap: $gap;
+}
+
+@mixin resetear-lista{
+    margin: 0;
+    padding: 0;
+    list-style: none; // este mixin es para sacarle estilos que trae por defectos el orderlist 
 }
